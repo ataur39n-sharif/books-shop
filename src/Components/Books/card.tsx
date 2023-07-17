@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
@@ -19,14 +19,6 @@ export default function BooksCard({ cards }: { cards: number[] }) {
                     <Card
                         sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                     >
-                        {/* <CardMedia
-                            component="div"
-                            sx={{
-                                // 16:9
-                                pt: '56.25%',
-                            }}
-                            image="https://source.unsplash.com/random?wallpapers"
-                        /> */}
                         <CardContent sx={{ flexGrow: 1 }}>
                             <Typography gutterBottom variant="h5" component="h2">
                                 {book.title}
