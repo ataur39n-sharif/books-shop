@@ -4,7 +4,6 @@ import { Col, FloatingLabel, Form, Row } from "react-bootstrap";
 
 export default function SearchFilterComponent() {
     const [activeFilter, setActiveFilter] = useState(false)
-    console.log(activeFilter);
 
     return (
         <Row>
