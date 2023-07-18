@@ -3,6 +3,7 @@ import App from "../App";
 import { SigninPage } from "../Pages/Signin";
 import { SignupPage } from "../Pages/Signup";
 import SingleBook from "../Pages/SingleBook";
+import PrivateRoute from "./privateRoute";
 
 const router = createBrowserRouter([
     {
@@ -11,7 +12,11 @@ const router = createBrowserRouter([
     },
     {
         path: '/signin',
-        element: <SigninPage />
+        element: (
+            <PrivateRoute>
+                <SigninPage />
+            </PrivateRoute>
+        )
     },
     {
         path: 'signup',
