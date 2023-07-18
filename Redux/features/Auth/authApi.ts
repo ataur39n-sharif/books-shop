@@ -1,4 +1,4 @@
-import { ApiSlice } from './../../api/api.slice';
+import { ApiSlice } from '../../api/api.slice';
 
 interface ILogin {
     email: string,

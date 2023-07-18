@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-hot-toast';
-import { useSignUpMutation } from '../../../Redux/features/Auth/auth.apiSlice';
+import { useSignUpMutation } from '../../../Redux/features/Auth/authApi';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();

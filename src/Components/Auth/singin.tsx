@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useLoginMutation } from "../../../Redux/features/Auth/auth.apiSlice.ts";
+import { useLoginMutation } from "../../../Redux/features/Auth/authApi.ts";
 import { toast } from 'react-hot-toast';
 import { useAppDispatch } from "../../../Redux/hook.ts";
 import { authenticate } from '../../../Redux/features/Auth/auth.slice.ts';
