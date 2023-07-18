@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLoginMutation } from "../../../Redux/features/Auth/auth.apiSlice.ts";
 import { toast } from 'react-hot-toast';
+import { useAppDispatch } from "../../../Redux/hook.ts";
+import { authenticate } from '../../../Redux/features/Auth/auth.slice.ts';
 
 // function Copyright(props: any) {
 //   return (
@@ -33,6 +35,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
 
+  const dispatch = useAppDispatch()
   const [signIn, { isSuccess, isLoading, data, isError, error }] = useLoginMutation()
   console.log({ isSuccess, isLoading, data, isError, error });
 
@@ -53,8 +56,15 @@ export default function SignIn() {
   };
 
   if (isLoading) toast.loading('Please wait...', { id: 'login' });
-  if (isError) toast.error(error?.data?.message, { id: 'login' })
-
+  if (isError) toast.error((error as any)?.data?.message, { id: 'login' })
+  if (isSuccess) {
+    toast.success('Success. .', { id: 'login' });
+    console.log(data);
+    dispatch(authenticate(data.data))
+    setTimeout(() => {
+      window.location.replace('/')
+    }, 2000);
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>

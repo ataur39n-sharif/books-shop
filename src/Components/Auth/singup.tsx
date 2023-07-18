@@ -12,19 +12,51 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { toast } from 'react-hot-toast';
+import { useSignUpMutation } from '../../../Redux/features/Auth/auth.apiSlice';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+
+  const [signUp, { isError, error, data, isLoading, isSuccess }] = useSignUpMutation()
+
+  console.log({ isError, error, data, isLoading, isSuccess });
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const info = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName')
+    }
+
+    if (!info.firstName || !info.lastName || !info.email || !info.password) {
+      toast.error('All fields are required', { id: "signup" })
+    } else {
+      signUp({
+        name: {
+          firstName: info.firstName as string,
+          lastName: info.lastName as string
+        },
+        email: info.email as string,
+        password: info.password as string,
+      })
+    }
   };
+
+  if (isLoading) toast.loading('Please wait...', { id: 'signup' });
+  if (isError) toast.error((error as any)?.data?.message, { id: 'signup' })
+  if (isSuccess) {
+    toast.success('Success. Please log into your account.', { id: 'signup' });
+    setTimeout(() => {
+      window.location.replace('/signin')
+    }, 2000);
+  }
+
 
   return (
     <ThemeProvider theme={defaultTheme}>

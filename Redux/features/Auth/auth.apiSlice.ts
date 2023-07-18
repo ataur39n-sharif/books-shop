@@ -1,21 +1,28 @@
 import { ApiSlice } from './../../api/api.slice';
 
-type TLogin = {
+interface ILogin {
     email: string,
     password: string
+}
+
+interface IRegister extends ILogin {
+    name: {
+        firstName: string
+        lastName: string
+    }
 }
 
 const AuthApiSlice = ApiSlice.injectEndpoints({
     endpoints: (builder) => ({
         signUp: builder.mutation({
-            query: (data) => ({
-                url: '/register',
+            query: (data: IRegister) => ({
+                url: '/auth/register',
                 method: 'POST',
                 body: data
             })
         }),
         login: builder.mutation({
-            query: (data: TLogin) => ({
+            query: (data: ILogin) => ({
                 url: '/auth/login',
                 method: 'POST',
                 body: data
