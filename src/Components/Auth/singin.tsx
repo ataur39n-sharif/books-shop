@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useLoginMutation } from "../../../Redux/features/Auth/auth.apiSlice.ts";
+import { toast } from 'react-hot-toast';
 
 // function Copyright(props: any) {
 //   return (
@@ -30,14 +32,29 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+
+  const [signIn, { isSuccess, isLoading, data, isError, error }] = useLoginMutation()
+  console.log({ isSuccess, isLoading, data, isError, error });
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const info = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }
+    if (!info.email || !info.password) {
+      toast.error('All fields are required', { id: 'login' })
+    }
+    signIn({
+      email: data.get('email') as string,
+      password: data.get('password') as string,
+    })
   };
+
+  if (isLoading) toast.loading('Please wait...', { id: 'login' });
+  if (isError) toast.error(error?.data?.message, { id: 'login' })
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
