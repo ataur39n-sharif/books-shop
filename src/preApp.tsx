@@ -11,10 +11,11 @@ export default function PreInitApp({ children }: IProps) {
     useEffect(() => {
         const auth = localStorage.getItem('auth')
         if (auth) {
-            const { accessToken, email } = JSON.parse(auth)
+            const { accessToken, email, id } = JSON.parse(auth)
             dispatch(authenticate({
                 accessToken,
-                email
+                email,
+                id
             }))
         }
     }, [])

@@ -3,24 +3,34 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export interface IAuthentication {
     email: string;
     accessToken: string;
+    id: string;
 }
 const initialState: IAuthentication = {
     email: "",
-    accessToken: ""
+    accessToken: "",
+    id: "",
 }
 
-export const AuthSlice = createSlice({
+const AuthSlice = createSlice({
     name: "Authentication",
     initialState,
     reducers: {
         authenticate: (state, action: PayloadAction<IAuthentication>) => {
+            console.log(action.payload);
+            
             state.accessToken = action.payload.accessToken
             state.email = action.payload.email
-            localStorage.setItem('auth',JSON.stringify(action.payload))
+            state.id = action.payload.id
+            localStorage.setItem('auth', JSON.stringify(action.payload))
+        },
+        logout: (state, action) => {
+            state.accessToken = ""
+            state.email = ""
+            localStorage.clear()
         }
     }
 })
 
-export const { authenticate } = AuthSlice.actions
+export const { authenticate, logout } = AuthSlice.actions
 
 export default AuthSlice.reducer;

@@ -4,6 +4,8 @@ import { SigninPage } from "../Pages/Signin";
 import { SignupPage } from "../Pages/Signup";
 import SingleBook from "../Pages/SingleBook";
 import PrivateRoute from "./privateRoute";
+import AddBook from "../Pages/AddBook";
+import PublicRoute from "./publicRoute";
 
 const router = createBrowserRouter([
     {
@@ -13,18 +15,26 @@ const router = createBrowserRouter([
     {
         path: '/signin',
         element: (
-            <PrivateRoute>
+            <PublicRoute>
                 <SigninPage />
-            </PrivateRoute>
+            </PublicRoute>
         )
     },
     {
         path: 'signup',
-        element: <SignupPage />
+        element: (
+            <PrivateRoute>
+                <SignupPage />
+            </PrivateRoute>
+        )
     },
     {
         path: '/book/:id',
         element: <SingleBook />
+    },
+    {
+        path: '/add-book',
+        element: <AddBook />
     }
 ])
 

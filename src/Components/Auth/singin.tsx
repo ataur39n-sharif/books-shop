@@ -17,20 +17,6 @@ import { toast } from 'react-hot-toast';
 import { useAppDispatch } from "../../../Redux/hook.ts";
 import { authenticate } from '../../../Redux/features/Auth/auth.slice.ts';
 
-// function Copyright(props: any) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignIn() {
@@ -61,9 +47,9 @@ export default function SignIn() {
     toast.success('Success. .', { id: 'login' });
     console.log(data);
     dispatch(authenticate(data.data))
-    setTimeout(() => {
-      window.location.replace('/')
-    }, 2000);
+    // setTimeout(() => {
+    //   window.location.replace('/')
+    // }, 3000);
   }
 
   return (
@@ -118,11 +104,6 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
               <Grid item>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
@@ -131,7 +112,6 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );
