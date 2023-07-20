@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useParams } from "react-router-dom";
 
 const book = {
     "_id": "6427f934f98e745f8458fe83",
@@ -12,7 +13,12 @@ const book = {
     "genre": "Motivation",
     "publicationDate": "01-01-1901"
 }
-export default function SingleBook() {
+export default function BooksDetails() {
+    const { id } = useParams()
+
+    console.log(id);
+
+
     return (
         < >
             <NavBar />
