@@ -5,6 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useParams } from "react-router-dom";
+import { useGetSingleBookQuery } from "../../Redux/features/Books/booksApi";
 
 const book = {
     "_id": "6427f934f98e745f8458fe83",
@@ -17,6 +18,7 @@ export default function BooksDetails() {
     const { id } = useParams()
 
     console.log(id);
+    const { isError, isLoading, error, data } = useGetSingleBookQuery(id as string)
 
 
     return (

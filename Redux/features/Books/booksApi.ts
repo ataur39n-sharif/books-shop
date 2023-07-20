@@ -9,6 +9,11 @@ const BooksAPi = ApiSlice.injectEndpoints({
                 url: '/books',
             })
         }),
+        getSingleBook: builder.query({
+            query: (id: string) => ({
+                url: `/books/${id}`
+            })
+        }),
         addNewBook: builder.mutation({
             query: (data: IBook) => ({
                 url: '/books',
@@ -22,4 +27,4 @@ const BooksAPi = ApiSlice.injectEndpoints({
     })
 })
 
-export const { useGetBooksQuery,useAddNewBookMutation } = BooksAPi
+export const { useGetBooksQuery, useAddNewBookMutation, useGetSingleBookQuery } = BooksAPi
