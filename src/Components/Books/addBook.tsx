@@ -22,10 +22,7 @@ import { IBook } from '../../../Redux/features/Books/books.slice.ts';
 const defaultTheme = createTheme();
 
 export default function AddBook() {
-
-    const dispatch = useAppDispatch()
     const [addNewBook, { isSuccess, isLoading, data, isError, error }] = useAddNewBookMutation()
-    console.log({ isSuccess, isLoading, data, isError, error });
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -40,12 +37,9 @@ export default function AddBook() {
 
         if (!info.author || !info.title || !info.genre || !info.publicationDate) {
             toast.error('All fields are required', { id: 'newBook' })
+        } else {
+            addNewBook(info as IBook)
         }
-        addNewBook(info as IBook)
-        // signIn({
-        //     email: data.get('email') as string,
-        //     password: data.get('password') as string,
-        // })
     };
 
     if (isLoading) toast.loading('Please wait...', { id: 'newBook' });
@@ -53,7 +47,6 @@ export default function AddBook() {
     if (isSuccess) {
         toast.success('Success. .', { id: 'newBook' });
         console.log(data);
-        // dispatch(authenticate(data.data))
         setTimeout(() => {
             window.location.replace('/')
         }, 2000);

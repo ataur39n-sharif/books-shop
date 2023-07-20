@@ -16,7 +16,6 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SearchFilterComponent from '../Search';
-import { Switch, TextField } from '@mui/material';
 import BooksCard from './card';
 import { useGetBooksQuery } from "../../../Redux/features/Books/booksApi.ts";
 
@@ -40,7 +39,17 @@ const defaultTheme = createTheme();
 
 export default function Books() {
     const { isError, isLoading, isSuccess, data } = useGetBooksQuery(null)
-    console.log({ isError, isLoading, isSuccess, data });
+
+    console.log(data);
+
+
+    if (isLoading) {
+        return (
+            <div>
+                <p>Loading...</p>
+            </div>
+        )
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -83,7 +92,7 @@ export default function Books() {
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="lg">
                     {/* End hero unit */}
-                    <BooksCard cards={cards} />
+                    <BooksCard cards={cards} books={data.data} />
                 </Container>
             </main>
             {/* Footer */}

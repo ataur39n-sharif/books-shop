@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { store } from "../../store"
 
 export interface IBook {
+    _id?: string,
     title: string,
     author: string,
     publicationDate: string,

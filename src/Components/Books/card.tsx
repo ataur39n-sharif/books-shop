@@ -2,6 +2,7 @@ import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/m
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
+import { IBook } from "../../../Redux/features/Books/books.slice";
 
 const book = {
     "_id": "6427f934f98e745f8458fe83",
@@ -11,11 +12,11 @@ const book = {
     "publicationDate": "01-01-1901"
 }
 
-export default function BooksCard({ cards }: { cards: number[] }) {
+export default function BooksCard({ cards, books }: { cards: number[], books: IBook[] }) {
     return (
         <Grid container spacing={4}>
-            {cards.map((card) => (
-                <Grid item key={card} xs={12} sm={6} md={4}>
+            {books.map((book, i) => (
+                <Grid item key={book._id} xs={12} sm={6} md={4}>
                     <Card
                         sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                     >
@@ -28,7 +29,7 @@ export default function BooksCard({ cards }: { cards: number[] }) {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Link to={`/book/${card}`}>
+                            <Link to={`/book/${book._id}`}>
                                 <Button size="small">View</Button>
                             </Link>
                             {/* <Button size="small">Edit</Button> */}
