@@ -9,7 +9,7 @@ export default function PrivateRoute({ children }: IProps) {
     const { email } = useAppSelector(state => state.authentication)
 
     if (!email) {
-        window.location.replace('/')
+        window.location.replace('/signin')
         return (
             <>
             </>
@@ -17,6 +17,4 @@ export default function PrivateRoute({ children }: IProps) {
     } else {
         return children
     }
-
-
 }

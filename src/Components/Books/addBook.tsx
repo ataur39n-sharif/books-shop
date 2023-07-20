@@ -16,13 +16,15 @@ import { useLoginMutation } from "../../../Redux/features/Auth/authApi.ts";
 import { toast } from 'react-hot-toast';
 import { useAppDispatch } from "../../../Redux/hook.ts";
 import { authenticate } from '../../../Redux/features/Auth/auth.slice.ts';
+import { useAddNewBookMutation } from '../../../Redux/features/Books/booksApi.ts';
+import { IBook } from '../../../Redux/features/Books/books.slice.ts';
 
 const defaultTheme = createTheme();
 
 export default function AddBook() {
 
     const dispatch = useAppDispatch()
-    const [signIn, { isSuccess, isLoading, data, isError, error }] = useLoginMutation()
+    const [addNewBook, { isSuccess, isLoading, data, isError, error }] = useAddNewBookMutation()
     console.log({ isSuccess, isLoading, data, isError, error });
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,21 +38,22 @@ export default function AddBook() {
         }
         console.log(info);
 
-        // if (!info.email || !info.password) {
-        //     toast.error('All fields are required', { id: 'login' })
-        // }
+        if (!info.author || !info.title || !info.genre || !info.publicationDate) {
+            toast.error('All fields are required', { id: 'newBook' })
+        }
+        addNewBook(info as IBook)
         // signIn({
         //     email: data.get('email') as string,
         //     password: data.get('password') as string,
         // })
     };
 
-    if (isLoading) toast.loading('Please wait...', { id: 'login' });
-    if (isError) toast.error((error as any)?.data?.message, { id: 'login' })
+    if (isLoading) toast.loading('Please wait...', { id: 'newBook' });
+    if (isError) toast.error((error as any)?.data?.message, { id: 'newBook' })
     if (isSuccess) {
-        toast.success('Success. .', { id: 'login' });
+        toast.success('Success. .', { id: 'newBook' });
         console.log(data);
-        dispatch(authenticate(data.data))
+        // dispatch(authenticate(data.data))
         setTimeout(() => {
             window.location.replace('/')
         }, 2000);
@@ -93,7 +96,7 @@ export default function AddBook() {
                             label="Author"
                             name="author"
                             autoComplete="text"
-                            autoFocus
+                        // autoFocus
                         />
                         <TextField
                             margin="normal"
@@ -103,7 +106,7 @@ export default function AddBook() {
                             label="Genre"
                             name="genre"
                             autoComplete="text"
-                            autoFocus
+                        // autoFocus
                         />
                         <TextField
                             margin="normal"
@@ -114,7 +117,7 @@ export default function AddBook() {
                             name="publicationDate"
                             autoComplete="text"
                             type='date'
-                            autoFocus
+                        // autoFocus
                         />
                         <Button
                             type="submit"
