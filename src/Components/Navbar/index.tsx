@@ -22,22 +22,35 @@ function NavBar() {
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar className='me-2'>
-                        <Link to={'/add-book'}>
-                            <Button startIcon={<Person2Icon />} variant="outlined" className=''>Add book</Button>
-                        </Link>
-                    </Navbar>
-                    <Navbar>
-                        {
-                            !email ? <Link to={'/signin'}>
-                                <Button startIcon={<Person2Icon />} variant="outlined">Sing In</Button>
-                            </Link> : <Button
-                                onClick={() => dispatch(logout(null))}
-                                startIcon={<Person2Icon />}
-                                variant="outlined"
-                            >Sing out</Button>
-                        }
-                    </Navbar>
+                    {
+                        email ? <>
+                            <Navbar className='me-2'>
+                                <Link to={'/dashboard'}>
+                                    <Button startIcon={<Person2Icon />} variant="outlined" className=''>DashBoard</Button>
+                                </Link>
+                            </Navbar>
+                            <Navbar className='me-2'>
+                                <Link to={'/add-book'}>
+                                    <Button startIcon={<Person2Icon />} variant="outlined" className=''>Add book</Button>
+                                </Link>
+                            </Navbar>
+                            <Navbar>
+                                <Button
+                                    onClick={() => dispatch(logout(null))}
+                                    startIcon={<Person2Icon />}
+                                    variant="outlined"
+                                >
+                                    Sing out
+                                </Button>
+                            </Navbar>
+                        </> : <>
+                            <Navbar>
+                                <Link to={'/signin'}>
+                                    <Button startIcon={<Person2Icon />} variant="outlined">Sing In</Button>
+                                </Link>
+                            </Navbar>
+                        </>
+                    }
                     {/* <Navbar>
                         <Link to={'/signin'}>
                             <Button startIcon={<Person2Icon />} variant="outlined">Sing Out</Button>
