@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import NavBar from '../Components/Navbar';
 import { Container } from 'react-bootstrap';
+import { useAppSelector } from '../../Redux/hook';
+import { Link } from 'react-router-dom';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -41,6 +43,7 @@ function a11yProps(index: number) {
 
 export default function DashBoard() {
     const [value, setValue] = React.useState(0);
+    const ownBooklist = useAppSelector((state) => state.books.ownBookList)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -66,7 +69,18 @@ export default function DashBoard() {
                         <Tab label="Wishlist" {...a11yProps(1)} />
                     </Tabs>
                     <TabPanel value={value} index={0}>
-                        Item One right side
+                        <ul>
+                            {
+                                ownBooklist.map((book) => {
+                                    return (
+                                        <Link to={`/book/${book._id as string}`}>
+                                            <li>{book.title}</li>
+                                        </Link>
+                                    )
+                                })
+
+                            }
+                        </ul>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         Item Two
