@@ -2,6 +2,11 @@ import { store } from '../../store';
 import { ApiSlice } from './../../api/api.slice';
 import { IBook } from './books.slice';
 
+type TUploadPayload = {
+    data: IBook,
+    id: string
+}
+
 const BooksAPi = ApiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getBooks: builder.query({
@@ -11,7 +16,7 @@ const BooksAPi = ApiSlice.injectEndpoints({
         }),
         getSingleBook: builder.query({
             query: (id: string) => ({
-                url: `/books/${id}`
+                url: `/books/${id}`,
             })
         }),
         addNewBook: builder.mutation({
@@ -23,8 +28,18 @@ const BooksAPi = ApiSlice.injectEndpoints({
                 },
                 body: data
             })
+        }),
+        updateBook: builder.mutation({
+            query: (data: TUploadPayload) => ({
+                url: `/books/${data.id}`,
+                method: 'PATCH',
+                headers: {
+                    'Authorization': 'Bearer ' + store.getState().authentication.accessToken
+                },
+                body: data.data
+            })
         })
     })
 })
 
-export const { useGetBooksQuery, useAddNewBookMutation, useGetSingleBookQuery } = BooksAPi
+export const { useGetBooksQuery, useAddNewBookMutation, useGetSingleBookQuery,useUpdateBookMutation } = BooksAPi

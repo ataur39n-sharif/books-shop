@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../../Redux/features/Books/booksApi";
 
 const book = {
@@ -16,11 +16,15 @@ const book = {
 }
 export default function BooksDetails() {
     const { id } = useParams()
-
-    console.log(id);
     const { isError, isLoading, error, data } = useGetSingleBookQuery(id as string)
 
+    console.log(data);
+    const date = new Date(data?.data?.publicationDate)
+    
 
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
     return (
         < >
             <NavBar />
@@ -29,17 +33,25 @@ export default function BooksDetails() {
             }}>
                 <div className="d-flex justify-content-center" style={{ height: "100%" }}>
                     <div className="d-flex align-items-center">
-                        <div>
-                            <p>Title : {book.title}</p>
-                            <p>Author : {book.author}</p>
-                            <p>Genre : {book.genre}</p>
-                            <p>Publication Date : {book.publicationDate}</p>
-                            <div>
-                                <Button size="small">Edit</Button>
-                                <Button size="small"><FavoriteBorderIcon /><FavoriteIcon /></Button>
-                                <Button size="small"><DeleteIcon /></Button>
-                            </div>
-                        </div>
+                        {
+                            data ?
+                                <div>
+                                    <p>Title : {data.data.title}</p>
+                                    <p>Author : {data.data.author}</p>
+                                    <p>Genre : {data.data.genre}</p>
+                                    <p>Publication Date : {date.toISOString().split('T')[0]}</p>
+                                    <div>
+                                        <Link to={`/edit-book/${data.data._id}`}>
+                                            <Button size="small">View</Button>
+                                        </Link>
+                                        <Button size="small"><FavoriteBorderIcon /><FavoriteIcon /></Button>
+                                        <Button size="small"><DeleteIcon /></Button>
+                                    </div>
+                                </div> :
+                                <div>
+                                    <p>Something is wrong!.</p>
+                                </div>
+                        }
                     </div>
                 </div>
 
