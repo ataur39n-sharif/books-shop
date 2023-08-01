@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useAddNewBookMutation, useGetSingleBookQuery, useUpdateBookMutation } from "../../Redux/features/Books/booksApi"
+import { useAddNewBookMutation, useDeleteBookMutation, useGetSingleBookQuery, useUpdateBookMutation } from "../../Redux/features/Books/booksApi"
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -23,6 +23,7 @@ export default function EditBook() {
     const book = bookInfo?.data?.data as IBook
     // console.log(data);
     const [updateBook, { isSuccess, isLoading, data, isError, error }] = useUpdateBookMutation()
+
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -54,6 +55,8 @@ export default function EditBook() {
             window.location.replace('/')
         }, 2000);
     }
+
+
 
     return (
         <ThemeProvider theme={defaultTheme}>

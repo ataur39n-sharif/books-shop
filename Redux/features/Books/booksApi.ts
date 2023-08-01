@@ -38,8 +38,17 @@ const BooksAPi = ApiSlice.injectEndpoints({
                 },
                 body: data.data
             })
-        })
+        }),
+        deleteBook: builder.mutation({
+            query: (id:string) => ({
+                url: `/books/${id}`,
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + store.getState().authentication.accessToken
+                },
+            })
+        }),
     })
 })
 
-export const { useGetBooksQuery, useAddNewBookMutation, useGetSingleBookQuery,useUpdateBookMutation } = BooksAPi
+export const { useGetBooksQuery, useAddNewBookMutation, useGetSingleBookQuery,useUpdateBookMutation ,useDeleteBookMutation} = BooksAPi

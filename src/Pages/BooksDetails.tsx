@@ -5,7 +5,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link, useParams } from "react-router-dom";
-import { useGetSingleBookQuery } from "../../Redux/features/Books/booksApi";
+import { useDeleteBookMutation, useGetSingleBookQuery } from "../../Redux/features/Books/booksApi";
+import { toast } from "react-hot-toast";
 
 const book = {
     "_id": "6427f934f98e745f8458fe83",
@@ -17,13 +18,27 @@ const book = {
 export default function BooksDetails() {
     const { id } = useParams()
     const { isError, isLoading, error, data } = useGetSingleBookQuery(id as string)
+    const [deleteBook, status] = useDeleteBookMutation()
 
     console.log(data);
     const date = new Date(data?.data?.publicationDate)
-    
+
 
     if (isLoading) {
         return <p>Loading...</p>
+    }
+
+    const handleDelete = async () => {
+        await deleteBook(id as string)
+    }
+    if (status.isLoading) toast.loading('Please wait...', { id: 'deleteBook' });
+    if (status.isError) toast.error((status.error as any)?.data?.message, { id: 'deleteBook' })
+    if (status.isSuccess) {
+        toast.success('Success. .', { id: 'deleteBook' });
+        console.log(data);
+        setTimeout(() => {
+            window.location.replace('/')
+        }, 2000);
     }
     return (
         < >
@@ -45,7 +60,7 @@ export default function BooksDetails() {
                                             <Button size="small">View</Button>
                                         </Link>
                                         <Button size="small"><FavoriteBorderIcon /><FavoriteIcon /></Button>
-                                        <Button size="small"><DeleteIcon /></Button>
+                                        <Button onClick={() => handleDelete()} size="small"><DeleteIcon /></Button>
                                     </div>
                                 </div> :
                                 <div>
