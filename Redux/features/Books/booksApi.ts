@@ -10,15 +10,15 @@ type TUploadPayload = {
 const BooksAPi = ApiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getBooks: builder.query({
-            query: ({ search, date, genre }) => {
+            query: ({ search, publicationDate, genre }) => {
                 const params = new URLSearchParams();
 
                 if (search) {
                     params.append('search', search);
                 }
 
-                if (date) {
-                    params.append('date', date);
+                if (publicationDate) {
+                    params.append('publicationDate', publicationDate);
                 }
 
                 if (genre) {

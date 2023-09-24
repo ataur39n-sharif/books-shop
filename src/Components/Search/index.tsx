@@ -8,6 +8,10 @@ import { loadBooks } from "../../../Redux/features/Books/books.slice";
 export default function SearchFilterComponent() {
     const [activeFilter, setActiveFilter] = useState(false)
     const [search, setSearch] = useState('')
+    const [filter, setFilter] = useState({
+        genre: '',
+        publicationDate: ''
+    })
     const [searchQuery] = useLazyGetBooksQuery()
     return (
         <Row>
@@ -26,7 +30,7 @@ export default function SearchFilterComponent() {
                                 Genre (optional)
                             </Form.Label>
                             <Col sm={7}>
-                                <Form.Control type="text" placeholder="Type a genre" />
+                                <Form.Control type="text" placeholder="Type a genre" onChange={({ target }) => setFilter({ ...filter, genre: target.value })} />
                             </Col>
                         </Form.Group>
 
@@ -35,7 +39,7 @@ export default function SearchFilterComponent() {
                                 Publication Date (optional)
                             </Form.Label>
                             <Col sm={7}>
-                                <Form.Control type="date" placeholder="select date" />
+                                <Form.Control type="date" placeholder="select date" onChange={({ target }) => setFilter({ ...filter, publicationDate: target.value })} />
                             </Col>
                         </Form.Group>
                     </div>
@@ -44,7 +48,7 @@ export default function SearchFilterComponent() {
             <Col sm={12} className="text-center">
                 {
                     activeFilter ?
-                        <Button variant="contained" onClick={() => console.log('filter')}>Filter</Button>
+                        <Button variant="contained" onClick={() => searchQuery(filter)}>Filter</Button>
                         :
                         <Button variant="contained" onClick={() => searchQuery({
                             search
