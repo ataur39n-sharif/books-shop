@@ -23,7 +23,7 @@ export default function SignIn() {
 
   const dispatch = useAppDispatch()
   const [signIn, { isSuccess, isLoading, data, isError, error }] = useLoginMutation()
-  console.log({ isSuccess, isLoading, data, isError, error });
+  //console.log({ isSuccess, isLoading, data, isError, error });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,7 +45,7 @@ export default function SignIn() {
   if (isError) toast.error((error as any)?.data?.message, { id: 'login' })
   if (isSuccess) {
     toast.success('Success. .', { id: 'login' });
-    console.log(data);
+    //console.log(data);
     dispatch(authenticate(data.data))
     // setTimeout(() => {
     //   window.location.replace('/')

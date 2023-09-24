@@ -44,6 +44,8 @@ function a11yProps(index: number) {
 export default function DashBoard() {
     const [value, setValue] = React.useState(0);
     const ownBooklist = useAppSelector((state) => state.books.ownBookList)
+    const wishList = useAppSelector((state) => state.books.wishlist)
+
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -83,22 +85,18 @@ export default function DashBoard() {
                         </ul>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        Item Two
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        Item Three
-                    </TabPanel>
-                    <TabPanel value={value} index={3}>
-                        Item Four
-                    </TabPanel>
-                    <TabPanel value={value} index={4}>
-                        Item Five
-                    </TabPanel>
-                    <TabPanel value={value} index={5}>
-                        Item Six
-                    </TabPanel>
-                    <TabPanel value={value} index={6}>
-                        Item Seven
+                        <ul>
+                            {
+                                wishList.map((book) => {
+                                    return (
+                                        <Link to={`/book/${book._id as string}`}>
+                                            <li>{book.title}</li>
+                                        </Link>
+                                    )
+                                })
+
+                            }
+                        </ul>
                     </TabPanel>
                 </Box>
             </Container>

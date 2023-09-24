@@ -11,7 +11,7 @@ const BooksAPi = ApiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getBooks: builder.query({
             query: () => ({
-                url: '/books',
+                url: `/books`,
             })
         }),
         getSingleBook: builder.query({

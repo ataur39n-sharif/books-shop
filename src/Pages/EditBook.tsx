@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-hot-toast';
 import { IBook } from "../../Redux/features/Books/books.slice.ts";
+import NavBar from "../Components/Navbar/index.tsx";
 
 
 
@@ -21,7 +22,7 @@ export default function EditBook() {
     const { id } = useParams()
     const bookInfo = useGetSingleBookQuery(id as string)
     const book = bookInfo?.data?.data as IBook
-    // console.log(data);
+    // //console.log(data);
     const [updateBook, { isSuccess, isLoading, data, isError, error }] = useUpdateBookMutation()
 
 
@@ -34,7 +35,7 @@ export default function EditBook() {
             genre: data.get('genre'),
             publicationDate: data.get('publicationDate') || book.publicationDate
         }
-        console.log(info);
+        //console.log(info);
 
         if (!info.author || !info.title || !info.genre || !info.publicationDate) {
             toast.error('All fields are required', { id: 'updateBook' })
@@ -50,7 +51,7 @@ export default function EditBook() {
     if (isError) toast.error((error as any)?.data?.message, { id: 'updateBook' })
     if (isSuccess) {
         toast.success('Success. .', { id: 'updateBook' });
-        console.log(data);
+        //console.log(data);
         setTimeout(() => {
             window.location.replace('/')
         }, 2000);
@@ -59,81 +60,85 @@ export default function EditBook() {
 
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <AddCircleOutline />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Edit book
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="title"
-                            label="Title"
-                            name="title"
-                            autoComplete="text"
-                            autoFocus
-                            defaultValue={book.title}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="author"
-                            label="Author"
-                            name="author"
-                            autoComplete="text"
-                            defaultValue={book.author}
-                        // autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="genre"
-                            label="Genre"
-                            name="genre"
-                            autoComplete="text"
-                            defaultValue={book.genre}
+        <>
+            <NavBar />
+            <ThemeProvider theme={defaultTheme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <AddCircleOutline />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Edit book
+                        </Typography>
+                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="title"
+                                label="Title"
+                                name="title"
+                                autoComplete="text"
+                                autoFocus
+                                defaultValue={book.title}
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="author"
+                                label="Author"
+                                name="author"
+                                autoComplete="text"
+                                defaultValue={book.author}
+                            // autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="genre"
+                                label="Genre"
+                                name="genre"
+                                autoComplete="text"
+                                defaultValue={book.genre}
 
-                        // autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="publish_date"
-                            label="Publish Date"
-                            name="publicationDate"
-                            autoComplete="text"
-                            type='date'
+                            // autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="publish_date"
+                                label="Publish Date"
+                                name="publicationDate"
+                                autoComplete="text"
+                                type='date'
 
-                        // autoFocus
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Update
-                        </Button>
+                            // autoFocus
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Update
+                            </Button>
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
-        </ThemeProvider>
+                </Container>
+            </ThemeProvider>
+        </>
+
     );
 }

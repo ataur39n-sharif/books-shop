@@ -41,10 +41,11 @@ const defaultTheme = createTheme();
 
 export default function Books() {
     const id = useAppSelector((state) => state.authentication.id)
+    const wishList = useAppSelector((state) => state.books.wishlist)
     const dispatch = useAppDispatch()
     const { isError, isLoading, isSuccess, data, isFetching } = useGetBooksQuery(null)
 
-    console.log(isFetching);
+    //console.log(isFetching);
 
 
     if (isLoading) {
@@ -56,7 +57,7 @@ export default function Books() {
     }
 
     if (isSuccess) {
-        console.log({ isFetching: isFetching });
+        //console.log({ isFetching: isFetching });
         dispatch(loadBooks({
             books: data.data,
             id
@@ -104,7 +105,7 @@ export default function Books() {
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="lg">
                     {/* End hero unit */}
-                    <BooksCard cards={cards} books={data.data} />
+                    <BooksCard cards={cards} books={data.data} wishList={wishList} />
                 </Container>
             </main>
             {/* Footer */}

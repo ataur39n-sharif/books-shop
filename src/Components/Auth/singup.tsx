@@ -22,7 +22,7 @@ export default function SignUp() {
 
   const [signUp, { isError, error, data, isLoading, isSuccess }] = useSignUpMutation()
 
-  console.log({ isError, error, data, isLoading, isSuccess });
+  //console.log({ isError, error, data, isLoading, isSuccess });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

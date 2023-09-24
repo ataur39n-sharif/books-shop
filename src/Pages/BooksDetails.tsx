@@ -20,7 +20,7 @@ export default function BooksDetails() {
     const { isError, isLoading, error, data } = useGetSingleBookQuery(id as string)
     const [deleteBook, status] = useDeleteBookMutation()
 
-    console.log(data);
+    //console.log(data);
     const date = new Date(data?.data?.publicationDate)
 
 
@@ -35,7 +35,7 @@ export default function BooksDetails() {
     if (status.isError) toast.error((status.error as any)?.data?.message, { id: 'deleteBook' })
     if (status.isSuccess) {
         toast.success('Success. .', { id: 'deleteBook' });
-        console.log(data);
+        //console.log(data);
         setTimeout(() => {
             window.location.replace('/')
         }, 2000);

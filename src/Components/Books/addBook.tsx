@@ -33,7 +33,7 @@ export default function AddBook() {
             genre: data.get('genre'),
             publicationDate: data.get('publicationDate')
         }
-        console.log(info);
+        //console.log(info);
 
         if (!info.author || !info.title || !info.genre || !info.publicationDate) {
             toast.error('All fields are required', { id: 'newBook' })
@@ -46,7 +46,7 @@ export default function AddBook() {
     if (isError) toast.error((error as any)?.data?.message, { id: 'newBook' })
     if (isSuccess) {
         toast.success('Success. .', { id: 'newBook' });
-        console.log(data);
+        //console.log(data);
         setTimeout(() => {
             window.location.replace('/')
         }, 2000);

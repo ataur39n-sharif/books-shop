@@ -36,7 +36,6 @@ const BookSlice = createSlice({
     reducers: {
         loadBooks: (state, action: PayloadAction<ILoadBookPayload>) => {
             const { books, id } = action.payload
-            console.log({ books, id });
             state.list = books
             state.ownBookList = id ? books.filter(book => String(book.ownerId) === String(id)) : []
             state.selectBook = undefined
@@ -44,10 +43,19 @@ const BookSlice = createSlice({
         selectBook: (state, action: PayloadAction<string>) => {
             const list = state.list
             state.selectBook = list.find((book) => book._id === action.payload)
+        },
+        addToWishlist: (state, action: PayloadAction<IBook>) => {
+            const payload = action.payload
+            const pd = state.wishlist.find((book) => book._id === action.payload._id)
+            if (!pd) {
+                state.wishlist = [...state.wishlist, payload]
+            } else {
+                state.wishlist = state.wishlist.filter((book) => book._id !== action.payload._id)
+            }
         }
     }
 })
 
-export const { loadBooks, selectBook } = BookSlice.actions
+export const { loadBooks, selectBook, addToWishlist } = BookSlice.actions
 
 export default BookSlice.reducer
