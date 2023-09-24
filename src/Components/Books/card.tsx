@@ -13,7 +13,7 @@ import { useAppDispatch } from "../../../Redux/hook";
 //     "publicationDate": "01-01-1901"
 // }
 
-export default function BooksCard({ cards, books, wishList }: { cards: number[], books: IBook[], wishList: IBook[] }) {
+export default function BooksCard({ books, wishList }: { books: IBook[], wishList: IBook[] }) {
 
     const dispatch = useAppDispatch()
 

@@ -39,6 +39,8 @@ const BookSlice = createSlice({
             state.list = books
             state.ownBookList = id ? books.filter(book => String(book.ownerId) === String(id)) : []
             state.selectBook = undefined
+            state.wishlist = localStorage.getItem('wishlist') ? JSON.parse(localStorage.getItem('wishlist') as string) : []
+
         },
         selectBook: (state, action: PayloadAction<string>) => {
             const list = state.list
@@ -48,9 +50,13 @@ const BookSlice = createSlice({
             const payload = action.payload
             const pd = state.wishlist.find((book) => book._id === action.payload._id)
             if (!pd) {
-                state.wishlist = [...state.wishlist, payload]
+                const update = [...state.wishlist, payload]
+                localStorage.setItem('wishlist', JSON.stringify(update))
+                state.wishlist = update
             } else {
-                state.wishlist = state.wishlist.filter((book) => book._id !== action.payload._id)
+                const update = state.wishlist.filter((book) => book._id !== action.payload._id)
+                localStorage.setItem('wishlist', JSON.stringify(update))
+                state.wishlist = update
             }
         }
     }

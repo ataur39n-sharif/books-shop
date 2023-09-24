@@ -1,14 +1,18 @@
 import { Button, Switch, TextField } from "@mui/material";
 import { useState } from "react";
 import { Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import { useLazyGetBooksQuery } from "../../../Redux/features/Books/booksApi";
+import { useAppDispatch } from "../../../Redux/hook";
+import { loadBooks } from "../../../Redux/features/Books/books.slice";
 
 export default function SearchFilterComponent() {
     const [activeFilter, setActiveFilter] = useState(false)
-
+    const [search, setSearch] = useState('')
+    const [searchQuery] = useLazyGetBooksQuery()
     return (
         <Row>
             <Col sm={12}>
-                <TextField fullWidth label="Search by author name, book title and genre" id="fullWidth" />
+                <TextField fullWidth label="Search by author name, book title and genre" id="fullWidth" onChange={({ target }) => setSearch(target.value)} />
             </Col>
 
             <Col sm={12} >
@@ -38,7 +42,14 @@ export default function SearchFilterComponent() {
                 </Col>
             }
             <Col sm={12} className="text-center">
-                <Button variant="contained">{activeFilter ? 'Filter' : 'Search'}</Button>
+                {
+                    activeFilter ?
+                        <Button variant="contained" onClick={() => console.log('filter')}>Filter</Button>
+                        :
+                        <Button variant="contained" onClick={() => searchQuery({
+                            search
+                        })}>Search</Button>
+                }
             </Col>
 
         </Row>

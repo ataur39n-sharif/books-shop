@@ -19,7 +19,7 @@ import SearchFilterComponent from '../Search';
 import BooksCard from './card';
 import { useGetBooksQuery } from "../../../Redux/features/Books/booksApi.ts";
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook.ts';
-import { loadBooks } from '../../../Redux/features/Books/books.slice.ts';
+import { IBook, loadBooks } from '../../../Redux/features/Books/books.slice.ts';
 
 function Copyright() {
     return (
@@ -39,30 +39,9 @@ const cards = [1, 2, 3, 4, 5, 6, 7];
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Books() {
-    const id = useAppSelector((state) => state.authentication.id)
-    const wishList = useAppSelector((state) => state.books.wishlist)
-    const dispatch = useAppDispatch()
-    const { isError, isLoading, isSuccess, data, isFetching } = useGetBooksQuery(null)
+export default function Books({ books, wishlist }: { books: IBook[], wishlist: IBook[] }) {
 
-    //console.log(isFetching);
-
-
-    if (isLoading) {
-        return (
-            <div>
-                <p>Loading...</p>
-            </div>
-        )
-    }
-
-    if (isSuccess) {
-        //console.log({ isFetching: isFetching });
-        dispatch(loadBooks({
-            books: data.data,
-            id
-        }))
-    }
+    // const bookState = useAppSelector((state) => state.books)
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -105,7 +84,7 @@ export default function Books() {
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="lg">
                     {/* End hero unit */}
-                    <BooksCard cards={cards} books={data.data} wishList={wishList} />
+                    <BooksCard cards={cards} books={books} wishList={wishlist} />
                 </Container>
             </main>
             {/* Footer */}
