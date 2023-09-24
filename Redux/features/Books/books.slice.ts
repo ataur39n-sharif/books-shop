@@ -1,6 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { store } from "../../store"
-import { getUser } from "../Auth/auth.slice"
+import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 
 export interface IBook {
     _id?: string,
@@ -35,10 +33,11 @@ const BookSlice = createSlice({
     initialState,
     reducers: {
         loadBooks: (state, action: PayloadAction<ILoadBookPayload>) => {
-            const { books, id } = action.payload
+            const {books, id} = action.payload
             state.list = books
             state.ownBookList = id ? books.filter(book => String(book.ownerId) === String(id)) : []
             state.selectBook = undefined
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             state.wishlist = localStorage.getItem('wishlist') ? JSON.parse(localStorage.getItem('wishlist') as string) : []
 
         },
@@ -62,6 +61,6 @@ const BookSlice = createSlice({
     }
 })
 
-export const { loadBooks, selectBook, addToWishlist } = BookSlice.actions
+export const {loadBooks, selectBook, addToWishlist} = BookSlice.actions
 
 export default BookSlice.reducer

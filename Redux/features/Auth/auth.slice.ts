@@ -1,10 +1,11 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export interface IAuthentication {
     email: string | undefined;
     accessToken: string | undefined;
     id: string | undefined;
 }
+
 const initialState: IAuthentication = {
     email: undefined,
     accessToken: undefined,
@@ -21,7 +22,7 @@ const AuthSlice = createSlice({
             state.id = action.payload.id
             localStorage.setItem('auth', JSON.stringify(action.payload))
         },
-        logout: (state, action) => {
+        logout: (state) => {
             state.accessToken = ""
             state.email = ""
             localStorage.clear()
@@ -29,8 +30,9 @@ const AuthSlice = createSlice({
     }
 })
 
-export const { 
+export const {
     // getUser,
-     authenticate, logout } = AuthSlice.actions
+    authenticate, logout
+} = AuthSlice.actions
 
 export default AuthSlice.reducer;

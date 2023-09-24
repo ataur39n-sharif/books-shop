@@ -1,13 +1,13 @@
-import { ReactNode } from "react";
-import { useAppSelector } from "../../Redux/hook";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import {ReactNode} from "react";
+import {useAppSelector} from "../../Redux/hook";
 
 interface IProps {
     children: ReactNode;
 }
 
-export default function PublicRoute({ children }: IProps) {
-    const { email } = useAppSelector(state => state.authentication)
+
+export default function PublicRoute({children}: IProps) {
+    const {email} = useAppSelector(state => state.authentication)
 
     if (email) {
         window.location.replace('/')

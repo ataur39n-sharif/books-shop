@@ -1,29 +1,29 @@
-import { useParams } from "react-router-dom"
-import { useAddNewBookMutation, useDeleteBookMutation, useGetSingleBookQuery, useUpdateBookMutation } from "../../Redux/features/Books/booksApi"
+import {useParams} from "react-router-dom"
+import {useGetSingleBookQuery, useUpdateBookMutation} from "../../Redux/features/Books/booksApi"
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+
 import Box from '@mui/material/Box';
-import { AddCircleOutline } from '@mui/icons-material';
+import {AddCircleOutline} from '@mui/icons-material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { toast } from 'react-hot-toast';
-import { IBook } from "../../Redux/features/Books/books.slice.ts";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {toast} from 'react-hot-toast';
+import {IBook} from "../../Redux/features/Books/books.slice.ts";
 import NavBar from "../Components/Navbar/index.tsx";
-
 
 
 const defaultTheme = createTheme();
 
 export default function EditBook() {
-    const { id } = useParams()
+    const {id} = useParams()
     const bookInfo = useGetSingleBookQuery(id as string)
     const book = bookInfo?.data?.data as IBook
     // //console.log(data);
-    const [updateBook, { isSuccess, isLoading, data, isError, error }] = useUpdateBookMutation()
+    const [updateBook, {isSuccess, isLoading, isError, error}] = useUpdateBookMutation()
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +38,7 @@ export default function EditBook() {
         //console.log(info);
 
         if (!info.author || !info.title || !info.genre || !info.publicationDate) {
-            toast.error('All fields are required', { id: 'updateBook' })
+            toast.error('All fields are required', {id: 'updateBook'})
         } else {
             updateBook({
                 data: info as IBook,
@@ -47,10 +47,10 @@ export default function EditBook() {
         }
     };
 
-    if (isLoading) toast.loading('Please wait...', { id: 'updateBook' });
-    if (isError) toast.error((error as any)?.data?.message, { id: 'updateBook' })
+    if (isLoading) toast.loading('Please wait...', {id: 'updateBook'});
+    if (isError) toast.error((error as any)?.data?.message, {id: 'updateBook'})
     if (isSuccess) {
-        toast.success('Success. .', { id: 'updateBook' });
+        toast.success('Success. .', {id: 'updateBook'});
         //console.log(data);
         setTimeout(() => {
             window.location.replace('/')
@@ -58,13 +58,12 @@ export default function EditBook() {
     }
 
 
-
     return (
         <>
-            <NavBar />
+            <NavBar/>
             <ThemeProvider theme={defaultTheme}>
                 <Container component="main" maxWidth="xs">
-                    <CssBaseline />
+                    <CssBaseline/>
                     <Box
                         sx={{
                             marginTop: 8,
@@ -73,13 +72,13 @@ export default function EditBook() {
                             alignItems: 'center',
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <AddCircleOutline />
+                        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                            <AddCircleOutline/>
                         </Avatar>
                         <Typography component="h1" variant="h5">
                             Edit book
                         </Typography>
-                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                             <TextField
                                 margin="normal"
                                 required
@@ -100,7 +99,7 @@ export default function EditBook() {
                                 name="author"
                                 autoComplete="text"
                                 defaultValue={book.author}
-                            // autoFocus
+                                // autoFocus
                             />
                             <TextField
                                 margin="normal"
@@ -112,7 +111,7 @@ export default function EditBook() {
                                 autoComplete="text"
                                 defaultValue={book.genre}
 
-                            // autoFocus
+                                // autoFocus
                             />
                             <TextField
                                 margin="normal"
@@ -124,13 +123,13 @@ export default function EditBook() {
                                 autoComplete="text"
                                 type='date'
 
-                            // autoFocus
+                                // autoFocus
                             />
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
+                                sx={{mt: 3, mb: 2}}
                             >
                                 Update
                             </Button>

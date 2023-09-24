@@ -3,28 +3,26 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+
 import Box from '@mui/material/Box';
-import { AddCircleOutline } from '@mui/icons-material';
+import {AddCircleOutline} from '@mui/icons-material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useLoginMutation } from "../../../Redux/features/Auth/authApi.ts";
-import { toast } from 'react-hot-toast';
-import { useAppDispatch } from "../../../Redux/hook.ts";
-import { authenticate } from '../../../Redux/features/Auth/auth.slice.ts';
-import { useAddNewBookMutation } from '../../../Redux/features/Books/booksApi.ts';
-import { IBook } from '../../../Redux/features/Books/books.slice.ts';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {toast} from 'react-hot-toast';
+import {useAddNewBookMutation} from '../../../Redux/features/Books/booksApi.ts';
+import {IBook} from '../../../Redux/features/Books/books.slice.ts';
 
 const defaultTheme = createTheme();
 
 export default function AddBook() {
-    const [addNewBook, { isSuccess, isLoading, data, isError, error }] = useAddNewBookMutation()
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const [addNewBook, {isSuccess, isLoading, data, isError, error}] = useAddNewBookMutation()
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const info = {
@@ -36,16 +34,17 @@ export default function AddBook() {
         //console.log(info);
 
         if (!info.author || !info.title || !info.genre || !info.publicationDate) {
-            toast.error('All fields are required', { id: 'newBook' })
+            toast.error('All fields are required', {id: 'newBook'})
         } else {
-            addNewBook(info as IBook)
+            await addNewBook(info as IBook)
         }
     };
 
-    if (isLoading) toast.loading('Please wait...', { id: 'newBook' });
-    if (isError) toast.error((error as any)?.data?.message, { id: 'newBook' })
+    if (isLoading) toast.loading('Please wait...', {id: 'newBook'});
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
+    if (isError) toast.error((error as any)?.data?.message, {id: 'newBook'})
     if (isSuccess) {
-        toast.success('Success. .', { id: 'newBook' });
+        toast.success('Success. .', {id: 'newBook'});
         //console.log(data);
         setTimeout(() => {
             window.location.replace('/')
@@ -55,7 +54,7 @@ export default function AddBook() {
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -64,13 +63,14 @@ export default function AddBook() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <AddCircleOutline />
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <AddCircleOutline/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Add new book
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
@@ -89,7 +89,7 @@ export default function AddBook() {
                             label="Author"
                             name="author"
                             autoComplete="text"
-                        // autoFocus
+                            // autoFocus
                         />
                         <TextField
                             margin="normal"
@@ -99,7 +99,7 @@ export default function AddBook() {
                             label="Genre"
                             name="genre"
                             autoComplete="text"
-                        // autoFocus
+                            // autoFocus
                         />
                         <TextField
                             margin="normal"
@@ -110,13 +110,13 @@ export default function AddBook() {
                             name="publicationDate"
                             autoComplete="text"
                             type='date'
-                        // autoFocus
+                            // autoFocus
                         />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{mt: 3, mb: 2}}
                         >
                             Add
                         </Button>

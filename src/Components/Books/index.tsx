@@ -1,25 +1,13 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import SearchFilterComponent from '../Search';
 import BooksCard from './card';
-import { useGetBooksQuery } from "../../../Redux/features/Books/booksApi.ts";
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook.ts';
-import { IBook, loadBooks } from '../../../Redux/features/Books/books.slice.ts';
+import {IBook} from '../../../Redux/features/Books/books.slice.ts';
 
 function Copyright() {
     return (
@@ -34,18 +22,16 @@ function Copyright() {
     );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7];
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Books({ books, wishlist }: { books: IBook[], wishlist: IBook[] }) {
+export default function Books({books, wishlist}: { books: IBook[], wishlist: IBook[] }) {
 
     // const bookState = useAppSelector((state) => state.books)
 
+    // @ts-ignore
     return (
         <ThemeProvider theme={defaultTheme}>
-            <CssBaseline />
+            <CssBaseline/>
             <main>
                 {/* Hero unit */}
                 <Box
@@ -71,7 +57,7 @@ export default function Books({ books, wishlist }: { books: IBook[], wishlist: I
                             don&apos;t simply skip over it entirely.
                         </Typography>
                         <Stack
-                            sx={{ pt: 4 }}
+                            sx={{pt: 4}}
                             direction="row"
                             spacing={2}
                             justifyContent="center"
@@ -79,16 +65,16 @@ export default function Books({ books, wishlist }: { books: IBook[], wishlist: I
                         </Stack>
                     </Container>
                     <Container maxWidth="md">
-                        <SearchFilterComponent />
+                        <SearchFilterComponent/>
                     </Container>
                 </Box>
-                <Container sx={{ py: 8 }} maxWidth="lg">
+                <Container sx={{py: 8}} maxWidth="lg">
                     {/* End hero unit */}
-                    <BooksCard cards={cards} books={books} wishList={wishlist} />
+                    <BooksCard books={books} wishList={wishlist}/>
                 </Container>
             </main>
             {/* Footer */}
-            <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+            <Box sx={{bgcolor: 'background.paper', p: 6}} component="footer">
                 <Typography variant="h6" align="center" gutterBottom>
                     Footer
                 </Typography>
@@ -100,7 +86,7 @@ export default function Books({ books, wishlist }: { books: IBook[], wishlist: I
                 >
                     Something here to give the footer a purpose!
                 </Typography>
-                <Copyright />
+                <Copyright/>
             </Box>
             {/* End footer */}
         </ThemeProvider>
